@@ -1,0 +1,8 @@
+.DS_Store
+*/.DS_Store
+node_modules/*/*
+bower_components
+*.log
+www/cordova.js
+node_modules/*
+platforms/*
