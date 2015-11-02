@@ -16,3 +16,13 @@ $colors: (primary: #387ef5, secondary: #32db64, danger: #f53d3d, light: #f4f4f4,
 
 // App Sass
 // ---------------------------------
+.align-right{ text-align:right; }
+.ico-curweather{ font-size:80px; }
+.centered{ text-align:center;}
+ion-card-footer{
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding:16px;
+}

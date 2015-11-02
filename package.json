@@ -13,7 +13,9 @@
     "webpack": "1.10.5"
   },
   "dependencies": {
-    "ionic-framework": "2.0.0-alpha.30"
+    "ionic-framework": "2.0.0-alpha.30",
+    "spark": "^1.0.0",
+    "typescript-promises": "^0.1.3"
   },
   "cordovaPlugins": [
     "cordova-plugin-device",

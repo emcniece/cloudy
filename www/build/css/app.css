@@ -7116,3 +7116,19 @@ icon,
 
 .md {
   font-family: "Roboto", "Helvetica Neue", sans-serif; }
+
+.align-right {
+  text-align: right; }
+
+.ico-curweather {
+  font-size: 80px; }
+
+.centered {
+  text-align: center; }
+
+ion-card-footer {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 16px; }

@@ -1,5 +1,5 @@
 <ion-navbar *navbar>
-  <ion-title>Dash</ion-title>
+  <ion-title>Cloudy App</ion-title>
 </ion-navbar>
 
 <ion-content padding>
@@ -7,22 +7,25 @@
 
     <ion-card>
       <ion-card-header>
-        Recent Updates
+        Current Weather
       </ion-card-header>
-      <ion-card-content>
-        There is a fire in <b>sector 3</b>
+      <ion-card-content class="centered">
+
+        <icon [name]="currentCondition.icon" class="ico-curweather"></icon>
+        <h2>{{currentCondition.title}}</h2>
+
       </ion-card-content>
+      <ion-card-footer>
+        Last update: <span>43 seconds ago</span>
+      </ion-card-footer>
     </ion-card>
 
-    <ion-card>
-      <ion-card-header>Health</ion-card-header>
-      <ion-card-content> You ate an apple today!</ion-card-content>
-    </ion-card>
-
-    <ion-card>
-      <ion-card-header>Upcoming</ion-card-header>
-      <ion-card-content>You have <b>29</b> meetings on your calendar tomorrow.</ion-card-content>
-    </ion-card>
+    <ion-input fixed-label>
+      <ion-label>Device:</ion-label>
+      <select>
+        <option>Select Device</option>
+      </select>
+    </ion-input>
 
   </ion-list>
 </ion-content>

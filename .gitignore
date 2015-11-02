@@ -6,3 +6,4 @@ bower_components
 www/cordova.js
 node_modules/*
 platforms/*
+*sublime*

@@ -1,0 +1,30 @@
+<ion-navbar *navbar>
+  <ion-title>
+    Accounts
+  </ion-title>
+</ion-navbar>
+<ion-content>
+  <ion-list>
+    <form [ng-form-model]="settings">
+      <ion-switch ng-control="enableFriends">
+        Enable Friends
+      </ion-switch>
+
+      <ion-input>
+        <ion-label>Email</ion-label>
+        <input type="text" value="" ng-control="email">
+      </ion-input>
+
+      <ion-input>
+        <ion-label>Password</ion-label>
+        <input type="password" value="" ng-control="password">
+      </ion-input>
+
+      <ion-item class="align-right">
+        <button danger outline [hidden]="!login.message">{{login.message}}</button>
+        <button primary (click)="doLogin()">Log In</button>
+      </ion-item>
+
+    </form>
+  </ion-list>
+</ion-content>

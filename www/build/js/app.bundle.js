@@ -9448,7 +9448,9 @@
 	};
 	var ionic_1 = __webpack_require__(43);
 	var tabs_1 = __webpack_require__(517);
-	var data_1 = __webpack_require__(520);
+	var data_1 = __webpack_require__(521);
+	var weather_1 = __webpack_require__(519);
+	var particle_1 = __webpack_require__(524);
 	var TabsPage = (function () {
 	    function TabsPage(platform) {
 	        this.platform = platform;
@@ -9463,7 +9465,7 @@
 	    };
 	    TabsPage = __decorate([ionic_1.App({
 	        template: '<ion-nav [root]="root"></ion-nav>',
-	        providers: [data_1.Friends]
+	        providers: [data_1.Friends, weather_1.Weather, particle_1.Particle]
 	    }), __metadata('design:paramtypes', [typeof ionic_1.Platform !== 'undefined' && ionic_1.Platform || Object])], TabsPage);
 	    return TabsPage;
 	})();
@@ -73444,13 +73446,13 @@
 	};
 	var ionic_1 = __webpack_require__(43);
 	var dash_1 = __webpack_require__(518);
-	var chats_1 = __webpack_require__(519);
-	var account_1 = __webpack_require__(522);
+	var chats_1 = __webpack_require__(520);
+	var settings_1 = __webpack_require__(523);
 	var TabsPage = (function () {
 	    function TabsPage() {
 	        this.DashRoot = dash_1.Dash;
 	        this.ChatsRoot = chats_1.Chats;
-	        this.AccountRoot = account_1.Account;
+	        this.SettingsRoot = settings_1.Settings;
 	    }
 	    TabsPage = __decorate([ionic_1.Page({
 	        templateUrl: 'app/tabs/tabs.html'
@@ -73488,14 +73490,25 @@
 	};
 	///<referenc path="../../../typings/angular2/angular2.d.ts" />
 	var ionic_1 = __webpack_require__(43);
+	var weather_1 = __webpack_require__(519);
 	var Dash = (function () {
-	    function Dash(nav, view) {
+	    function Dash(nav, view, weather) {
 	        this.nav = nav;
 	        this.view = view;
+	        this.states = weather.states;
+	        this.currentCondition = this.states[0]; // Unknown
+	        // Mock spark response
+	        this.testCondition = 'WEATHER_OVERCAST';
+	        // Set current condition
+	        for (var i = 0; i < this.states.length; i++) {
+	            if (this.states[i].name === this.testCondition) {
+	                this.currentCondition = this.states[i];
+	            }
+	        }
 	    }
 	    Dash = __decorate([ionic_1.Page({
 	        templateUrl: 'app/dash/dash.html'
-	    }), __metadata('design:paramtypes', [typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController || Object, typeof ionic_1.ViewController !== 'undefined' && ionic_1.ViewController || Object])], Dash);
+	    }), __metadata('design:paramtypes', [typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController || Object, typeof ionic_1.ViewController !== 'undefined' && ionic_1.ViewController || Object, weather_1.Weather])], Dash);
 	    return Dash;
 	})();
 	exports.Dash = Dash;
@@ -73527,9 +73540,89 @@
 	var __metadata = undefined && undefined.__metadata || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
+	var angular2_1 = __webpack_require__(45);
+	var Weather = (function () {
+	    function Weather() {
+	        this.states = [{
+	            name: 'WEATHER_UNKNOWN',
+	            title: 'Unknown',
+	            icon: 'help',
+	            image: 'http://google.ca/image.png'
+	        }, {
+	            name: 'WEATHER_BLUE_SKY',
+	            title: 'Blue Skies',
+	            icon: 'sunny',
+	            image: 'http://google.ca/image.png'
+	        }, {
+	            name: 'WEATHER_NIGHT',
+	            title: 'Night',
+	            icon: 'cloudy-night',
+	            image: 'http://google.ca/image.png'
+	        }, {
+	            name: 'WEATHER_OVERCAST',
+	            title: 'Overcast',
+	            icon: 'cloudy',
+	            image: 'http://google.ca/image.png'
+	        }, {
+	            name: 'WEATHER_GOLDEN',
+	            title: 'Sunrise / Sunset',
+	            icon: 'flame',
+	            image: 'http://google.ca/image.png'
+	        }, {
+	            name: 'WEATHER_SNOW',
+	            title: 'Snow',
+	            icon: 'snowy',
+	            image: 'http://google.ca/image.png'
+	        }, {
+	            name: 'WEATHER_LIGHTNING',
+	            title: 'Thunderstorm',
+	            icon: 'thunderstorm',
+	            image: 'http://google.ca/image.png'
+	        }, {
+	            name: 'WEATHER_ERROR',
+	            title: 'Error',
+	            icon: 'alert',
+	            image: 'http://google.ca/image.png'
+	        }];
+	    }
+	    Weather.prototype.all = function () {
+	        return this.states;
+	    };
+	    Weather = __decorate([angular2_1.Injectable(), __metadata('design:paramtypes', [])], Weather);
+	    return Weather;
+	})();
+	exports.Weather = Weather;
+	//# sourceMappingURL=weather.js.map
+
+/***/ },
+/* 520 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+	    switch (arguments.length) {
+	        case 2:
+	            return decorators.reduceRight(function (o, d) {
+	                return d && d(o) || o;
+	            }, target);
+	        case 3:
+	            return decorators.reduceRight(function (o, d) {
+	                return d && d(target, key), void 0;
+	            }, void 0);
+	        case 4:
+	            return decorators.reduceRight(function (o, d) {
+	                return d && d(target, key, o) || o;
+	            }, desc);
+	    }
+	};
+	var __metadata = undefined && undefined.__metadata || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
 	var ionic_1 = __webpack_require__(43);
-	var data_1 = __webpack_require__(520);
-	var chat_1 = __webpack_require__(521);
+	var data_1 = __webpack_require__(521);
+	var chat_1 = __webpack_require__(522);
 	var Chats = (function () {
 	    function Chats(friends, nav, view) {
 	        this.nav = nav;
@@ -73554,7 +73647,7 @@
 	//# sourceMappingURL=chats.js.map
 
 /***/ },
-/* 520 */
+/* 521 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -73619,7 +73712,7 @@
 	//# sourceMappingURL=data.js.map
 
 /***/ },
-/* 521 */
+/* 522 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -73659,7 +73752,7 @@
 	//# sourceMappingURL=chat.js.map
 
 /***/ },
-/* 522 */
+/* 523 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -73685,21 +73778,123 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(43);
-	var data_1 = __webpack_require__(520);
 	var angular2_1 = __webpack_require__(45);
-	var Account = (function () {
-	    function Account(friends) {
+	var particle_1 = __webpack_require__(524);
+	//import {Validators} from 'angular2/forms';
+	var Settings = (function () {
+	    function Settings(particle) {
 	        this.settings = new angular2_1.ControlGroup({
-	            enableFriends: new angular2_1.Control(true)
+	            enableFriends: new angular2_1.Control(true),
+	            email: new angular2_1.Control('emcniece@gmail.com'),
+	            password: new angular2_1.Control('laro4325')
 	        });
+	        this.login = { message: false, error: false };
+	        console.log(particle.login());
 	    }
-	    Account = __decorate([ionic_1.Page({
-	        templateUrl: 'app/account/account.html'
-	    }), __metadata('design:paramtypes', [data_1.Friends])], Account);
-	    return Account;
+	    Settings.prototype.doLogin = function () {
+	        console.log(this.settings.controls.email.value);
+	        // We call our API to log the user in. The username and password are entered by the user
+	        /*
+	        fetch('https://api.particle.io/oauth/token', {
+	            method: 'POST',
+	            headers: {
+	                'Accept': 'application/json',
+	                'Content-Type': 'application/json'
+	            },
+	            body: JSON.stringify({
+	                this.settings.controls.email.value, this.settings.controls.password.value
+	            })
+	        })
+	        /*
+	        .then(status)
+	        .then(json)
+	        .then((response) => {
+	            // Once we get the JWT in the response, we save it into localStorage
+	            localStorage.setItem('jwt', response.id_token);
+	            // and then we redirect the user to the home
+	            this.router.parent.navigate('/home');
+	        })
+	        .catch((error) => {
+	            alert(error.message);
+	            console.log(error.message);
+	        });
+	        */
+	    };
+	    Settings = __decorate([ionic_1.Page({
+	        templateUrl: 'app/settings/settings.html'
+	    }), __metadata('design:paramtypes', [particle_1.Particle])], Settings);
+	    return Settings;
 	})();
-	exports.Account = Account;
-	//# sourceMappingURL=account.js.map
+	exports.Settings = Settings;
+	//# sourceMappingURL=settings.js.map
+
+/***/ },
+/* 524 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+	    switch (arguments.length) {
+	        case 2:
+	            return decorators.reduceRight(function (o, d) {
+	                return d && d(o) || o;
+	            }, target);
+	        case 3:
+	            return decorators.reduceRight(function (o, d) {
+	                return d && d(target, key), void 0;
+	            }, void 0);
+	        case 4:
+	            return decorators.reduceRight(function (o, d) {
+	                return d && d(target, key, o) || o;
+	            }, desc);
+	    }
+	};
+	var __metadata = undefined && undefined.__metadata || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var angular2_1 = __webpack_require__(45);
+	var http_1 = __webpack_require__(277);
+	var Particle = (function () {
+	    function Particle(http) {
+	        this.http = http;
+	        this.data = null;
+	        console.log('DataService constructor');
+	    }
+	    Particle.prototype.login = function () {
+	        //var username = data.credentials.username;
+	        //var password = data.credentials.password;
+	        var _this = this;
+	        var creds = "username=" + "test" + "&password=" + "test";
+	        var headers = new Headers();
+	        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+	        this.http.post('https://api.particle.io/oauth/token', creds, {
+	            headers: headers
+	        }).map(function (res) {
+	            return console.log(res);
+	        }).subscribe(function (data) {
+	            return _this.saveJwt(data);
+	        }, function (err) {
+	            return _this.logError(err);
+	        }, function () {
+	            return console.log('Authentication Complete');
+	        });
+	    };
+	    Particle.prototype.logError = function (err) {
+	        console.error('There was an error: ' + err);
+	    };
+	    Particle.prototype.saveJwt = function (data) {
+	        console.log(data);
+	        if (data.id_token) {
+	            localStorage.setItem('id_token', jwt);
+	        }
+	    };
+	    Particle = __decorate([angular2_1.Injectable(), __metadata('design:paramtypes', [typeof http_1.Http !== 'undefined' && http_1.Http || Object])], Particle);
+	    return Particle;
+	})();
+	exports.Particle = Particle;
+	//# sourceMappingURL=particle.js.map
 
 /***/ }
 /******/ ]);
